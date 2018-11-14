@@ -1,0 +1,29 @@
+- file:
+    path: /etc/cni/net.d
+    state: directory
+    mode: 0755
+
+- file:
+    path: /opt/cni/bin
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/lib/kubelet
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/lib/kube-proxy
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/lib/kubernetes
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/run/kubernetes
+    state: directory
+    mode: 0755
