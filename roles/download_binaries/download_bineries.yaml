@@ -19,26 +19,26 @@
 
 - name: download runc
   get_url:
-    url: https://github.com/opencontainers/runc/releases/download/v${RUNC_VERSION}}/runc.amd64
+    url: https://github.com/opencontainers/runc/releases/download/v${RUNC_VERSION}/runc.amd64
     dest: /usr/local/bin/runc
     mode: 0440
 
 
 - name: downlad crictl
   unarchive:
-    src: https://github.com/kubernetes-incubator/cri-tools/releases/download/v${CRICTL_VERSION}}/crictl-v1.0.0-beta.0-linux-amd64.tar.gz 
+    src: https://github.com/kubernetes-incubator/cri-tools/releases/download/v${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz 
     dest: /usr/local/bin/
     remote_src: yes
 
 - name: downlad cni-plugins
   unarchive:
-    src: https://github.com/containernetworking/plugins/releases/download/v${CNI_PLUGINS_VERSION}}/cni-plugins-amd64-v0.6.0.tgz
+    src: https://github.com/containernetworking/plugins/releases/download/v${CNI_PLUGINS_VERSION}/cni-plugins-amd64-v${CNI_PLUGINS_VERSION}.tgz
     dest: /opt/cni/bin/
     remote_src: yes
 
 - name: downlad containerd
   unarchive:
-    src: https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-1.1.2.linux-amd64.tar.gz
+    src: https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-${CONTAINERD_VERSION}.linux-amd64.tar.gz
     dest: /
     remote_src: yes
 
