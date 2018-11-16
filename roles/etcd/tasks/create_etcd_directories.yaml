@@ -1,0 +1,9 @@
+- file:
+    path: /etc/etcd
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/lib/etcd
+    state: directory
+    mode: 0755

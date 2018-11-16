@@ -1,0 +1,23 @@
+- name: copy ca cert
+  copy:
+    src: /${ADM_CA}/ca.pem
+    dest: /etc/etcd/ca.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy kubernetes cert
+  copy:
+    src: /${ADM_CA}/kubernetes.pem
+    dest: /etc/etcd/kubernetes.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy kubernetes key
+  copy:
+    src: /${ADM_CA}/kubernetes-key.pem
+    dest: /etc/etcd/kubernetes-key.pem
+    owner: root
+    group: root
+    mode: 0644

@@ -1,8 +1,4 @@
 ###### DOWNLOAD ETCD
-vars: 
-  - ETCD_VERSION=
-  - ADM_OS=
-  - ETCD_NAME=
 
 - name: downlad crictl
   unarchive:
