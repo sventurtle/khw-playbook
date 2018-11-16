@@ -1,0 +1,98 @@
+###### DOWNLOAD ETCD
+vars: 
+  - ETCD_VERSION=
+  - ADM_OS=
+  - ETCD_NAME=
+
+- name: downlad crictl
+  unarchive:
+    src: https://github.com/coreos/etcd/releases/download/v${ETCD_VERSION}/etcd-v${ETCD_VERSION}-${ADM_OS}.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+    mode: 0755
+
+###### CREATE ETCD's DIRETORIES
+
+- file:
+    path: /etc/etcd
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/lib/etcd
+    state: directory
+    mode: 0755
+
+###### COPY CERTS
+
+- name: copy ca cert
+  copy:
+    src: /${ADM_CA}/ca.pem
+    dest: /etc/etcd/ca.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy kubernetes cert
+  copy:
+    src: /${ADM_CA}/kubernetes.pem
+    dest: /etc/etcd/kubernetes.pem
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy kubernetes key
+  copy:
+    src: /${ADM_CA}/kubernetes-key.pem
+    dest: /etc/etcd/kubernetes-key.pem
+    owner: root
+    group: root
+    mode: 0644
+
+##### SYSTEMD TEMPLATE
+
+[Unit]
+Description=etcd
+Documentation=https://github.com/coreos
+
+[Service]
+ExecStart=/usr/local/bin/etcd \\
+  --name ${ETCD_NAME} \\
+  --cert-file=/etc/etcd/kubernetes.pem \\
+  --key-file=/etc/etcd/kubernetes-key.pem \\
+  --peer-cert-file=/etc/etcd/kubernetes.pem \\
+  --peer-key-file=/etc/etcd/kubernetes-key.pem \\
+  --trusted-ca-file=/etc/etcd/ca.pem \\
+  --peer-trusted-ca-file=/etc/etcd/ca.pem \\
+  --peer-client-cert-auth \\
+  --client-cert-auth \\
+  --listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \\
+  --advertise-client-urls https://${INTERNAL_IP}:2379 \\
+  --initial-cluster-token etcd-cluster-0 \\
+  --initial-cluster controller-0=https://127.0.0.1:2380 \\
+  --initial-cluster-state new \\
+  --data-dir=/var/lib/etcd
+Restart=on-failure
+RestartSec=5
+Type=notify
+
+##### SYSTEMD COPY TEMPLATE
+
+- template:
+    src: /templates/etcd.service.j2
+    dest: /etc/systemd/system/etcd.service
+    owner: root
+    group: root
+    mode: 0644
+
+
+##### RELOAD|ENABLE|START ETCD
+
+- name: daemon-reload
+  systemd: daemon_reload=yes
+
+- name: start etcd
+  systemd:
+    name: etcd.service
+    state: started
+    enabled: yes
