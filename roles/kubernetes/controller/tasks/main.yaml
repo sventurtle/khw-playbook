@@ -1,0 +1,143 @@
+#### DOWNLOAD BINARIES
+
+- name: download kube-apiserver
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kube-apiserver
+    dest: /usr/local/bin/kube-proxy
+    mode: 0755
+
+- name: download kube-controller-manager
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kube-controller-manager
+    dest: /usr/local/bin/kube-proxy
+    mode: 0755
+
+- name: download kube-scheduler
+  get_urls:  
+    url: https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kube-scheduler
+    dest: /usr/local/bin/kube-proxy
+    mode: 0755
+
+##### COPY CERTS
+
+name: copy ca cert
+  copy:
+    src: /${ADM_CA}/ca.pem
+    dest: /var/lib/kubernetes/ca.pem
+    owner: root
+    group: root
+    mode: 0644
+
+name: copy ca key
+  copy:
+    src: /${ADM_CA}/ca-key.pem
+    dest: /var/lib/kubernetes/ca-key.pem
+    owner: root
+    group: root
+    mode: 0644
+
+name: copy kubernetes cert
+  copy:
+    src: /${ADM_CA}/kubernetes.pem
+    dest: /var/lib/kubernetes/kubernetes.pem
+    owner: root
+    group: root
+    mode: 0644
+
+name: copy kubernetes key
+  copy:
+    src: /${ADM_CA}/kubernetes-key.pem
+    dest: /var/lib/kubernetes/kubernetes-key.pem
+    owner: root
+    group: root
+    mode: 0644
+
+name: copy service-account cert
+  copy:
+    src: /${ADM_CA}/service-account.pem
+    dest: /var/lib/kubernetes/service-account.pem
+    owner: root
+    group: root
+    mode: 0644
+
+name: copy service-account key
+  copy:
+    src: /${ADM_CA}/service-account-key.pem
+    dest: /var/lib/kubernetes/service-account-key.pem
+    owner: root
+    group: root
+    mode: 0644
+   
+name: copy encryption-config.yaml
+  copy:
+    src: ${ADM_KUBECONFIGDIR}/encryption-config.yaml
+    dest: /var/lib/kubernetes/ca.pem
+    owner: root
+    group: root
+    mode: 0644       
+
+
+
+#### COPY SYSTEMD TEMPLATE
+
+- template:
+    src: .templates/kube-apiserver.service.j2
+    dest: /etc/systemd/system/kube-apiserver.service
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: .templates/kube-controller-manager.service.j2
+    dest: /etc/systemd/system/kube-controller-manager.service
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: .templates/kube-scheduler.service.j2
+    dest: /etc/systemd/system/kube-scheduler.service
+    owner: root
+    group: root
+    mode: 0644
+
+
+
+#### COPY CONFIGS
+
+- template:
+    src: .templates/kube-controller-manager.kubeconfig.j2
+    dest: /var/lib/kubernetes/kube-controller-manager.kubeconfig
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: .templates/kube-scheduler.kubeconfig.j2
+    dest: /var/lib/kubernetes/kube-scheduler.kubeconfig
+    owner: root
+    group: root
+    mode: 0644
+
+#### START SERVICES
+
+- name: daemon-reload
+  systemd: daemon_reload=yes
+
+- name: start kube-apiserver
+  systemd:
+    name: kube-apiserver.service
+    state: started
+    enabled: yes
+
+- name: start kube-controller-manager
+  systemd:
+    name: kube-controller-manager.service
+    state: started
+    enabled: yes
+
+- name: start kube-scheduler
+  systemd:
+    name: kube-scheduler.service
+    state: started
+    enabled: yes
