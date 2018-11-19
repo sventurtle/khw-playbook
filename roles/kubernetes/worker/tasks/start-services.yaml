@@ -9,6 +9,12 @@
 
 - name: start kubelet
   systemd:
-    name: kubelet
+    name: kubelet.service
+    state: started
+    enabled: yes
+
+- name: start containerd
+  systemd:
+    name: containerd.service
     state: started
     enabled: yes
