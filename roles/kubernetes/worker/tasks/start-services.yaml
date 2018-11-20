@@ -4,17 +4,17 @@
 - name: start kube-proxy
   systemd:
     name: kube-proxy.service
-    state: started
+    state: restarted
     enabled: yes
 
 - name: start kubelet
   systemd:
     name: kubelet.service
-    state: started
+    state: restarted
     enabled: yes
 
 - name: start containerd
   systemd:
     name: containerd.service
-    state: started
+    state: restarted
     enabled: yes

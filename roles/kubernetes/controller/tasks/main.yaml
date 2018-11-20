@@ -2,19 +2,19 @@
 
 - name: download kube-apiserver
   get_url:
-    url: https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kube-apiserver
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ KUBE_VERSION }}/bin/linux/amd64/kube-apiserver
     dest: /usr/local/bin/kube-proxy
     mode: 0755
 
 - name: download kube-controller-manager
   get_url:
-    url: https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kube-controller-manager
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ KUBE_VERSION }}/bin/linux/amd64/kube-controller-manager
     dest: /usr/local/bin/kube-proxy
     mode: 0755
 
 - name: download kube-scheduler
   get_urls:  
-    url: https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kube-scheduler
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ KUBE_VERSION }}/bin/linux/amd64/kube-scheduler
     dest: /usr/local/bin/kube-proxy
     mode: 0755
 
@@ -22,7 +22,7 @@
 
 name: copy ca cert
   copy:
-    src: /${ADM_CA}/ca.pem
+    src: /{{ ADM_CA }}/ca.pem
     dest: /var/lib/kubernetes/ca.pem
     owner: root
     group: root
@@ -30,7 +30,7 @@ name: copy ca cert
 
 name: copy ca key
   copy:
-    src: /${ADM_CA}/ca-key.pem
+    src: /{{ ADM_CA }}/ca-key.pem
     dest: /var/lib/kubernetes/ca-key.pem
     owner: root
     group: root
@@ -38,7 +38,7 @@ name: copy ca key
 
 name: copy kubernetes cert
   copy:
-    src: /${ADM_CA}/kubernetes.pem
+    src: /{{ ADM_CA }}/kubernetes.pem
     dest: /var/lib/kubernetes/kubernetes.pem
     owner: root
     group: root
@@ -46,7 +46,7 @@ name: copy kubernetes cert
 
 name: copy kubernetes key
   copy:
-    src: /${ADM_CA}/kubernetes-key.pem
+    src: /{{ ADM_CA }}/kubernetes-key.pem
     dest: /var/lib/kubernetes/kubernetes-key.pem
     owner: root
     group: root
@@ -54,7 +54,7 @@ name: copy kubernetes key
 
 name: copy service-account cert
   copy:
-    src: /${ADM_CA}/service-account.pem
+    src: /{{ ADM_CA }}/service-account.pem
     dest: /var/lib/kubernetes/service-account.pem
     owner: root
     group: root
@@ -62,7 +62,7 @@ name: copy service-account cert
 
 name: copy service-account key
   copy:
-    src: /${ADM_CA}/service-account-key.pem
+    src: /{{ ADM_CA }}/service-account-key.pem
     dest: /var/lib/kubernetes/service-account-key.pem
     owner: root
     group: root
@@ -70,7 +70,7 @@ name: copy service-account key
    
 name: copy encryption-config.yaml
   copy:
-    src: ${ADM_KUBECONFIGDIR}/encryption-config.yaml
+    src: /{{ ADM_KUBECONFIGDIR }}/encryption-config.yaml
     dest: /var/lib/kubernetes/ca.pem
     owner: root
     group: root
@@ -127,17 +127,17 @@ name: copy encryption-config.yaml
 - name: start kube-apiserver
   systemd:
     name: kube-apiserver.service
-    state: started
+    state: restarted
     enabled: yes
 
 - name: start kube-controller-manager
   systemd:
     name: kube-controller-manager.service
-    state: started
+    state: restarted
     enabled: yes
 
 - name: start kube-scheduler
   systemd:
     name: kube-scheduler.service
-    state: started
+    state: restarted
     enabled: yes

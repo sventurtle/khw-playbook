@@ -4,5 +4,5 @@
 - name: start etcd
   systemd:
     name: etcd.service
-    state: started
+    state: restarted
     enabled: yes
