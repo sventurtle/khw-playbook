@@ -1,3 +1,5 @@
-- include tasks: copy-configs.yaml
+- name: copy-configs
+  include: copy-configs.yaml
 
-- include tasks: start-services.yaml
+- name: start-services
+  include: start-services.yaml

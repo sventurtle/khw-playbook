@@ -1,4 +1,4 @@
-- hosts:  
+- hosts: localhost  
   become: true
   roles:
     - create_directories

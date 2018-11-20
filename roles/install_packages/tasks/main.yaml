@@ -1,0 +1,15 @@
+ - name: install packages
+   apt:
+     name: "{{ packages }}"
+     state: installed
+   vars:
+     packages:
+     - libseccomp2
+     - aufs-dkms
+     - socat
+     - conntrack
+     - ipset
+     - nginx
+     - openvswitch-common 
+     - openvswitch-switch
+     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

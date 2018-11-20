@@ -1,10 +1,14 @@
----
-- include_tasks: downlad_etcd.yaml
+- name: downlad_etcd
+  include: downlad_etcd.yaml
 
-- include_tasks: create_etcd_directories.yaml
+- name: create_etcd_directories
+  include: create_etcd_directories.yaml
 
-- include_tasks: copy_etcd_certs.yaml
+- name: copy_etcd_certs
+  include: copy_etcd_certs.yaml
 
-- include_tasks: copy_etcd_service.yaml
+- name: copy_etcd_service
+  include: copy_etcd_service.yaml
 
-- include_tasks: start_etcd.yaml
+- name: start_etcd
+  include: start_etcd.yaml

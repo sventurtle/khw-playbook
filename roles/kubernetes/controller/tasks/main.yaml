@@ -13,14 +13,14 @@
     mode: 0755
 
 - name: download kube-scheduler
-  get_urls:  
+  get_url:  
     url: https://storage.googleapis.com/kubernetes-release/release/v{{ KUBE_VERSION }}/bin/linux/amd64/kube-scheduler
     dest: /usr/local/bin/kube-proxy
     mode: 0755
 
 ##### COPY CERTS
 
-name: copy ca cert
+- name: copy ca cert
   copy:
     src: /{{ ADM_CA }}/ca.pem
     dest: /var/lib/kubernetes/ca.pem
@@ -28,7 +28,7 @@ name: copy ca cert
     group: root
     mode: 0644
 
-name: copy ca key
+- name: copy ca key
   copy:
     src: /{{ ADM_CA }}/ca-key.pem
     dest: /var/lib/kubernetes/ca-key.pem
@@ -36,7 +36,7 @@ name: copy ca key
     group: root
     mode: 0644
 
-name: copy kubernetes cert
+- name: copy kubernetes cert
   copy:
     src: /{{ ADM_CA }}/kubernetes.pem
     dest: /var/lib/kubernetes/kubernetes.pem
@@ -44,7 +44,7 @@ name: copy kubernetes cert
     group: root
     mode: 0644
 
-name: copy kubernetes key
+- name: copy kubernetes key
   copy:
     src: /{{ ADM_CA }}/kubernetes-key.pem
     dest: /var/lib/kubernetes/kubernetes-key.pem
@@ -52,7 +52,7 @@ name: copy kubernetes key
     group: root
     mode: 0644
 
-name: copy service-account cert
+- name: copy service-account cert
   copy:
     src: /{{ ADM_CA }}/service-account.pem
     dest: /var/lib/kubernetes/service-account.pem
@@ -60,7 +60,7 @@ name: copy service-account cert
     group: root
     mode: 0644
 
-name: copy service-account key
+- name: copy service-account key
   copy:
     src: /{{ ADM_CA }}/service-account-key.pem
     dest: /var/lib/kubernetes/service-account-key.pem
@@ -68,7 +68,7 @@ name: copy service-account key
     group: root
     mode: 0644
    
-name: copy encryption-config.yaml
+- name: copy encryption-config.yaml
   copy:
     src: /{{ ADM_KUBECONFIGDIR }}/encryption-config.yaml
     dest: /var/lib/kubernetes/ca.pem
