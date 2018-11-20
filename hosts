@@ -1,0 +1,9 @@
+[all]
+m1 ansible_user=timofeev ansible_host= ansible_port=22 
+
+
+[masters]
+m1
+
+[slaves]
+m1

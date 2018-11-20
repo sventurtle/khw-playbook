@@ -1,18 +1,9 @@
-- hosts: 
+- hosts:  
   become: true
   roles:
-    - 
-    - 
-    - 
-
-- hosts: 
-  roles:
-    - 
-
-- hosts: 
-  roles:
-    - 
-
-- hosts: 
-  roles:
-    - 
+    - create_directories
+    - download_binaries
+    - install_packages
+    - etcd
+    - role: 'kubernetes/controller'
+    - role: 'kubernetes/worker'
