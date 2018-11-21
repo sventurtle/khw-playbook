@@ -1,0 +1,11 @@
+- file:
+    path: "{{ playbook_dir }}/config/"
+    state: absent
+
+- file:
+    path: "{{ playbook_dir }}/pki-ca/"
+    state: absent
+
+- file:
+    path: "{{ playbook_dir }}/pki"
+    state: absent
