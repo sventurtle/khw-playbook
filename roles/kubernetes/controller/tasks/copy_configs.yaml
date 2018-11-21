@@ -1,0 +1,20 @@
+- template:
+    src: templates/kube-controller-manager.kubeconfig.j2
+    dest: /var/lib/kubernetes/kube-controller-manager.kubeconfig
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: templates/kube-scheduler.kubeconfig.j2
+    dest: /var/lib/kubernetes/kube-scheduler.kubeconfig
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: templates/admin.kubeconfig.j2
+    dest: /var/lib/kubernetes/admin.kubeconfig
+    owner: root
+    group: root
+    mode: 0644
