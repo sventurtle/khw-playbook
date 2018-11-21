@@ -7,8 +7,8 @@
 - name: copy systemd template
   include: copy_systemd_template.yaml
 
-- name: copy configs
-  include: copy_configs.yaml
+- name: gen configs
+  include: gen_configs.yaml
 
 - name: start services
   include: start_services.yaml
