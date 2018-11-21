@@ -1,0 +1,5 @@
+- name: certs-configs-template 
+  include: certs-configs-template.yaml
+
+- name: kube-controller-cert-gen 
+  include: kube-controller-cert-gen.yaml

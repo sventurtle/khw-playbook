@@ -1,27 +1,41 @@
 - template:
-    src: .templates/10-bridge.conf
+    src: configs/10-bridge.conf
     dest: /etc/cni/net.d/10-bridge.conf
     owner: root
     group: root
     mode: 0644
 
 - template:
-    src: .templates/99-loopback.conf
+    src: configs/99-loopback.conf
     dest: /etc/cni/net.d/99-loopback.conf
     owner: root
     group: root
     mode: 0644
 
 - template:
-    src: .templates/kube-proxy-config.yaml
+    src: configs/kube-proxy-config.yaml
     dest: /var/lib/kube-proxy/kube-proxy-config.yaml
     owner: root
     group: root
     mode: 0644
 
 - template:
-    src: .templates/kubelet-config.yaml
+    src: configs/kubelet-config.yaml
     dest: /var/lib/kubelet/kubelet-config.yaml
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: configs/kubelet.service.j2
+    dest: /etc/systemd/system/kubelet.service
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: configs/containerd.service.j2
+    dest: /etc/systemd/system/containerd.service
     owner: root
     group: root
     mode: 0644

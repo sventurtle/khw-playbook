@@ -4,6 +4,7 @@
     - create_directories
     - download_binaries
     - install_packages
+    - certs
     - etcd
     - role: 'kubernetes/controller'
     - role: 'kubernetes/worker'

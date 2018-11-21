@@ -1,4 +1,14 @@
 - file:
+    path: "{{ playbook_dir }}/pki-ca/"
+    state: directory
+    mode: 0755
+
+- file:
+    path: "{{ playbook_dir }}/pki"
+    state: directory
+    mode: 0755
+
+- file:
     path: /etc/cni/net.d
     state: directory
     mode: 0755

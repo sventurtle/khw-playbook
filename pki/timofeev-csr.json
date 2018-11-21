@@ -1,5 +1,5 @@
 {
-  "CN": "system:node:{{ hostname }}",
+  "CN": "system:node:timofeev",
   "key": {
     "algo": "rsa",
     "size": 2048

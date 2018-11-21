@@ -1,0 +1,74 @@
+- hosts: localhost
+  become: yes
+
+  tasks:
+
+  - name: stop kube-apiserver
+    systemd:
+      name: kube-apiserver.service
+      state: stopped
+      enabled: yes
+
+  - name: stop kube-controller-manager
+    systemd:
+      name: kube-controller-manager.service
+      state: stopped
+      enabled: yes      
+
+  - name: stop kube-proxy
+    systemd:
+      name: kube-proxy.service
+      state: stopped
+      enabled: yes    
+
+  - name: stop kube-scheduler
+    systemd:
+      name: kube-scheduler.service
+      state: stopped
+      enabled: yes          
+
+  - name: stop kubelet
+    systemd:
+      name: kubelet.service
+      state: stopped
+      enabled: yes          
+
+  - file:
+      path: "{{ playbook_dir }}/pki-ca/"
+      state: absent
+      
+  - file:
+      path: "{{ playbook_dir }}/pki"
+      state: absent
+    
+  - file:
+      path: /etc/cni/net.d
+      state: absent
+    
+  - file:
+      path: /opt/cni/bin
+      state: absent
+      
+  - file:
+      path: /var/lib/kubelet
+      state: absent
+    ignore_errors: yes
+    
+  - file:
+      path: /var/lib/kube-proxy
+      state: absent
+    
+  - file:
+      path: /var/lib/kubernetes
+      state: absent
+     
+  - file:
+      path: /var/run/kubernetes
+      state: absent
+    
+  - name: rm kube services
+    shell: rm -rfv /etc/systemd/system/kube* /etc/systemd/system/etcd.service /etc/systemd/system/containerd.service
+
+  - name: rm kube binaries
+    shell: rm -rfv /usr/local/bin/crictl /usr/local/bin/etcd* /usr/local/bin/kube* /usr/local/bin/run* /usr/local/bin/ctr
+

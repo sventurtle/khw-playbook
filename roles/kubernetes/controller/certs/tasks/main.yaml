@@ -1,4 +1,0 @@
----
-- include_tasks: certs-configs-template.yaml
-
-- include_tasks: kube-controller-cert-gen.yaml
