@@ -1,7 +1,10 @@
 [all]
-m1 ansible_user= ansible_host= ansible_port= 
+controller ansible_user=root ansible_host=192.168.80.223 ansible_port=22 hostname=timofeev 
+worker ansible_user=root ansible_host=192.168.80.210 ansible_port=22 hostname=timofeev2
 
-[masters]
+[controller]
+controller
 
-[slaves]
+[workers]
+worker
 
