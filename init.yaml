@@ -8,4 +8,4 @@
     - download_kubectl
     - role: 'kubernetes/controller'
     - role: 'kubernetes/worker'
-#    - del_tmp_directories
+    - del_tmp_directories
