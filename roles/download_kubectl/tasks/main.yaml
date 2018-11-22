@@ -1,6 +1,6 @@
 - name: download GO
   unarchive:
-    src: https://dl.google.com/go/go$GO_VERSION.$ADM_OS.tar.gz
+    src: https://dl.google.com/go/go{{ GO_VERSION }}.{{ ADM_OS }}.tar.gz
     dest: /usr/local
     remote_src: yes
     mode: 0755
