@@ -1,3 +1,6 @@
+- name: download binaries
+  include: download_binaries.yaml
+
 - name: copy-configs
   include: copy-configs.yaml
 
