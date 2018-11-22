@@ -1,6 +1,6 @@
 [all]
-controller ansible_user=root ansible_host=192.168.80.223 ansible_port=22 hostname=timofeev 
-worker ansible_user=root ansible_host=192.168.80.210 ansible_port=22 hostname=timofeev2
+controller ansible_user=root ansible_host=127.0.0.1 ansible_port=22
+worker ansible_user=root ansible_host=127.0.0.1 ansible_port=22
 
 [controller]
 controller

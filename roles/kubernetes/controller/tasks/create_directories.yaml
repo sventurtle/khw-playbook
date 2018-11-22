@@ -1,9 +1,19 @@
 - file:
+    path: "/var/lib/kubelet/"
+    state: directory
+    mode: 0755
+
+- file:
     path: /etc/kubernetes/config
     state: directory
     mode: 0755
 
 - file:
     path: /var/lib/kubernetes
+    state: directory
+    mode: 0755
+
+- file:
+    path: /var/lib/kube-proxy
     state: directory
     mode: 0755
