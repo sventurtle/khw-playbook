@@ -1,3 +1,5 @@
+##### ADMIN CONFIG
+
 - debug:
     msg: "generating admin configs"
 
@@ -12,6 +14,8 @@
 
 - name: kubectl config use-context default
   shell: kubectl config use-context default --kubeconfig="{{ ADM_KUBECONFIGDIR }}admin.kubeconfig"
+
+##### KUBE-CONTROLLER-MANAGER CONFIG
 
 - debug:
     msg: "generating kube-controller-manager configs"
@@ -28,6 +32,11 @@
 - name: kubectl config use-context default
   shell: kubectl config use-context default --kubeconfig="{{ ADM_KUBECONFIGDIR }}kube-controller-manager.kubeconfig"
 
+- name: move kube-controller-manager.kubeconfig
+  shell: mv {{ ADM_KUBECONFIGDIR }}kube-contorller-manager.kubeconfig /var/lib/kubernetes/kubeconfig
+
+##### KUBE-PROXY CONFIG
+
 - debug:
     msg: "generating kube-proxy configs"
 
@@ -43,6 +52,11 @@
 - name: kubectl config use-context
   shell: kubectl config use-context default --kubeconfig="{{ ADM_KUBECONFIGDIR }}kube-proxy.kubeconfig"
 
+- name: move kube-proxy.kubeconfig
+  shell: mv {{ ADM_KUBECONFIGDIR }}kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
+
+##### KUBE-SCHEDULER CONFIG
+
 - debug:
     msg: "generating kube-scheduler configs"
 
@@ -57,3 +71,6 @@
 
 - name: kubectl config use-context
   shell: kubectl config use-context default --kubeconfig="{{ ADM_KUBECONFIGDIR }}kube-scheduler.kubeconfig"
+
+- name: move kube-scheduler.kubeconfig
+  shell: mv {{ ADM_KUBECONFIGDIR }}kube-scheduler.kubeconfig /var/lib/kubernetes/
