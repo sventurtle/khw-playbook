@@ -9,7 +9,4 @@
      - socat
      - conntrack
      - ipset
-     - nginx
-     - openvswitch-common 
-     - openvswitch-switch
      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

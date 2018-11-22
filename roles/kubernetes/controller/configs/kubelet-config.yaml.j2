@@ -14,5 +14,5 @@ clusterDNS:
   - "10.32.0.10"
 podCIDR: "10.0.0.0/16"
 runtimeRequestTimeout: "15m"
-tlsCertFile: "/var/lib/kubelet/{{ ansible_host }}.pem"
-tlsPrivateKeyFile: "/var/lib/kubelet/{{ ansible_host }}-key.pem"
+tlsCertFile: "/var/lib/kubelet/{{ hostname }}.pem"
+tlsPrivateKeyFile: "/var/lib/kubelet/{{ hostname }}-key.pem"
