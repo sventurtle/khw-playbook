@@ -2,10 +2,10 @@
   become: true
   roles:
     - create_directories
-    - download_binaries
     - install_packages
     - certs
     - etcd
+    - download_kubectl
     - role: 'kubernetes/controller'
     - role: 'kubernetes/worker'
 #    - del_tmp_directories
