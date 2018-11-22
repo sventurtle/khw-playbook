@@ -1,4 +1,25 @@
 - template:
+    src: "{{ ADM_KUBECONFIGDIR }}{{ hostname }}.kubeconfig"
+    dest: /var/lib/kubelet/kubeconfig
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: "{{ ADM_KUBECONFIGDIR }}kube-proxy.kubeconfig"
+    dest: /var/lib/kube-proxy/kubeconfig
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: configs/containerd-config.toml
+    dest: /etc/containerd/config.toml
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
     src: configs/10-bridge.conf
     dest: /etc/cni/net.d/10-bridge.conf
     owner: root

@@ -1,15 +1,5 @@
 - file:
-    path: "{{ playbook_dir }}/config/"
-    state: directory
-    mode: 0755
-
-- file:
-    path: "{{ playbook_dir }}/pki-ca/"
-    state: directory
-    mode: 0755
-
-- file:
-    path: "{{ playbook_dir }}/pki"
+    path: /etc/containerd/
     state: directory
     mode: 0755
 
@@ -42,3 +32,4 @@
     path: /var/run/kubernetes
     state: directory
     mode: 0755
+                    

@@ -1,3 +1,6 @@
+- name: create directories
+  include: create_directories.yaml
+
 - name: download binaries
   include: download_binaries.yaml
 

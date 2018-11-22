@@ -1,7 +1,7 @@
 - hosts: controller
   become: true
   roles:
-    - create_directories
+    - create_tmp_directories
     - install_packages
     - certs
     - etcd
@@ -12,10 +12,8 @@
 - hosts: workers
   become: true
   roles:
-    - create_directories
+    - create_tmp_directories
     - install_packages
-    - certs
-    - etcd
     - download_kubectl
     - role: 'kubernetes/worker'
     - del_tmp_directories
