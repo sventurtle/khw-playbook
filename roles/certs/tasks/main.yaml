@@ -1,8 +1,11 @@
-- name: certs-get-bin
-  include: certs-get-bin.yaml
+#- name: certs-get-bin
+#  include: certs-get-bin.yaml
 
-- name: certs-configs-template 
-  include: certs-configs-template.yaml
+#- name: certs-configs-template 
+#  include: certs-configs-template.yaml
 
-- name: kube-controller-cert-gen 
-  include: kube-controller-cert-gen.yaml
+#- name: kube-controller-cert-gen 
+#  include: kube-controller-cert-gen.yaml
+
+- name: gen ca
+  include: gen_ca.yaml

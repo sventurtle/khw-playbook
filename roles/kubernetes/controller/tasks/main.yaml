@@ -4,8 +4,11 @@
 - name: download binaries
   include: download_binaries.yaml
 
-- name: copy certs
-  include: copy_certs.yaml
+#- name: copy certs
+#  include: copy_certs.yaml
+
+- name: gen certs
+  include: gen_certs.yaml
 
 - name: copy systemd template
   include: copy_systemd_template.yaml
