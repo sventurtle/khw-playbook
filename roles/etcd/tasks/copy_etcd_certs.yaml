@@ -1,6 +1,6 @@
 - name: copy ca cert
   copy:
-    src: "{{ ADM_CA }}ca.pem"
+    src: "{{ ADM_CA }}/ca.pem"
     dest: /etc/etcd/ca.pem
     owner: root
     group: root

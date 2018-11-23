@@ -1,2 +1,2 @@
 - name: gen ca
-  script: scripts/certs.sh ansible ca
+  shell: bash /tmp/certs.sh ansible ca
