@@ -1,24 +1,15 @@
-- name: copy {{ hostname }} cert
-  copy:
-    src: "{{ ADM_CA }}{{ inventory_hostname }}.pem"
-    dest: /var/lib/kubelet/{{ hostname }}.pem
-    owner: root
-    group: root
-    mode: 0644
-
-- name: copy {{ inventory_hostname }} key
-  copy:
-    src: "{{ ADM_CA }}{{ hostname }}-key.pem"
-    dest: /var/lib/kubelet/{{ hostname }}-key.pem
-    owner: root
-    group: root
-    mode: 0644
-
 - name: copy ca cert
   copy:
-    src: "{{ ADM_CA }}ca.pem"
-    dest: /var/lib/kubernetes/ca.pem
+    src: "{{ ADM_CA }}/ca.pem"
+    dest: "{{ ADM_CA }}/ca.pem"
     owner: root
     group: root
     mode: 0644
 
+- name: copy ca key
+  copy:
+    src: "{{ ADM_CA }}/ca-key.pem"
+    dest: "{{ ADM_CA }}/ca-key.pem"
+    owner: root
+    group: root
+    mode: 0644
