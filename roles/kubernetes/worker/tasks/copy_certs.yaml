@@ -1,12 +1,12 @@
 - name: copy {{ hostname }} cert
   copy:
-    src: "{{ ADM_CA }}{{ hostname }}.pem"
+    src: "{{ ADM_CA }}{{ inventory_hostname }}.pem"
     dest: /var/lib/kubelet/{{ hostname }}.pem
     owner: root
     group: root
     mode: 0644
 
-- name: copy {{ hostname }} key
+- name: copy {{ inventory_hostname }} key
   copy:
     src: "{{ ADM_CA }}{{ hostname }}-key.pem"
     dest: /var/lib/kubelet/{{ hostname }}-key.pem
