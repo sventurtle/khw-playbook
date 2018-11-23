@@ -1,26 +1,26 @@
 - template:
-    src: templates/kube-apiserver.service.j2
+    src: kube-apiserver.service.j2
     dest: /etc/systemd/system/kube-apiserver.service
     owner: root
     group: root
     mode: 0644
 
 - template:
-    src: templates/kube-controller-manager.service.j2
+    src: kube-controller-manager.service.j2
     dest: /etc/systemd/system/kube-controller-manager.service
     owner: root
     group: root
     mode: 0644
 
 - template:
-    src: templates/kube-scheduler.service.j2
+    src: kube-scheduler.service.j2
     dest: /etc/systemd/system/kube-scheduler.service
     owner: root
     group: root
     mode: 0644
 
 - template:
-    src: templates/kube-proxy.service.j2
+    src: kube-proxy.service.j2
     dest: /etc/systemd/system/kube-proxy.service
     owner: root
     group: root

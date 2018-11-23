@@ -1,0 +1,12 @@
+---
+- name: get archive
+  shell: wget -q --show-progress --https-only --timestamping https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+
+- name: chmod
+  shell: chmod +x cfssl_linux-amd64 cfssljson_linux-amd64
+
+- name: mv cfssl_linux-amd64
+  shell: mv cfssl_linux-amd64 /usr/local/bin/cfssl
+
+- name: mv cfssljson_linux-amd64
+  shell: mv cfssljson_linux-amd64 /usr/local/bin/cfssljson

@@ -1,3 +1,6 @@
+- name: certs-configs-template
+  include: certs-get-bin.yaml
+
 - name: certs-configs-template 
   include: certs-configs-template.yaml
 
