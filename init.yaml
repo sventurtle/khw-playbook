@@ -1,10 +1,10 @@
-- hosts: localhost
-  become: true
-  roles:
-    - create_tmp_directories
-    - certs
+#- hosts: localhost
+#  become: true
+#  roles:
+#    - create_tmp_directories
+#    - certs
 
-- hosts: controllers
+- hosts: localhost
   become: true
   roles:
     - create_tmp_directories
@@ -13,7 +13,7 @@
     - etcd
     - download_kubectl
     - role: 'kubernetes/controller'
-    - del_tmp_directories
+#    - del_tmp_directories
 
 - hosts: workers
   become: true
@@ -22,4 +22,4 @@
     - install_packages
     - download_kubectl
     - role: 'kubernetes/worker'
-    - del_tmp_directories
+#    - del_tmp_directories

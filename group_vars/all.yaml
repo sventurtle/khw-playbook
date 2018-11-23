@@ -17,4 +17,4 @@ CNI_PLUGINS_VERSION: 0.6.0
 CONTAINERD_VERSION: 1.1.2
 EXTERNAL_IP: "{{ ansible_host }}"
 INTERNAL_IP: 127.0.0.1
-hostname: "{{ inventory_name  }}"
+hostname: "{{ inventory_hostname }}"
