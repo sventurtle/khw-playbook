@@ -1,0 +1,25 @@
+- file:
+    path: "/etc/kubernetes/pki/ca"
+    state: directory
+    mode: 0755
+- name: get ca
+  copy:
+    src: "/tmp/cfssl/ca/ca.pem"
+    dest: "/etc/kubernetes/pki/ca/ca.pem"
+    owner: root
+    group: root
+    mode: 0644
+- name: get ca key
+  copy:
+    src: "/tmp/cfssl/ca/ca-key.pem"
+    dest: "/etc/kubernetes/pki/ca/ca-key.pem"
+    owner: root
+    group: root
+    mode: 0644
+- name: get ca config
+  copy:
+    src: "/tmp/cfssl/ca/ca-config.json"
+    dest: "/etc/kubernetes/pki/ca/ca-config.json"
+    owner: root
+    group: root
+    mode: 0644

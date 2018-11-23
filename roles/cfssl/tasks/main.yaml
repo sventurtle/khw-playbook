@@ -1,0 +1,13 @@
+#- name: certs-get-bin
+#  include: certs-get-bin.yaml
+
+#- name: certs-configs-template 
+#  include: certs-configs-template.yaml
+
+#- name: kube-controller-cert-gen 
+#  include: kube-controller-cert-gen.yaml
+
+- name: install cfssl
+  include: cfssl_install.yaml
+- name: generate ca
+  include: cfssl_genca.yaml

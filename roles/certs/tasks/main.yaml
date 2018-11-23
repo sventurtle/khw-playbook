@@ -7,5 +7,20 @@
 #- name: kube-controller-cert-gen 
 #  include: kube-controller-cert-gen.yaml
 
-- name: gen ca
-  include: gen_ca.yaml
+#- name: gen ca
+#  include: gen_ca.yaml
+
+
+
+
+
+
+###########
+#- name: cfssl install
+#  include: cfssl_install.yaml
+- name: get ca
+  include: get_ca.yaml
+- name: gen csr
+  include: gen_csr.yaml
+- name: gen csr
+  include: gen_certs.yaml

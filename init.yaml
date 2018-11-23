@@ -1,25 +1,12 @@
 #- hosts: localhost
 #  become: true
 #  roles:
-#    - create_tmp_directories
-#    - certs
+###    - cfssl
 
-- hosts: controllers
+- hosts: all
   become: true
   roles:
-    - create_tmp_directories
-    - install_packages
     - certs
-    - etcd
-    - download_kubectl
-    - role: 'kubernetes/controller'
-#    - del_tmp_directories
-
-- hosts: workers
-  become: true
-  roles:
-#    - create_tmp_directories
-    - install_packages
-    - download_kubectl
-    - role: 'kubernetes/worker'
-#    - del_tmp_directories
+    - kubectl
+    - kubeinit
+    - configs
