@@ -7,14 +7,14 @@
 - name: install packages
   include: install_packages.yaml
 
-- name: gen-confs
-  include: gen-confs.yaml
-
 - name: copy certs
   include: copy_certs.yaml
 
 - name: copy-configs
   include: copy-configs.yaml
+
+- name: gen-confs
+  include: gen-confs.yaml
 
 - name: start-services
   include: start-services.yaml
