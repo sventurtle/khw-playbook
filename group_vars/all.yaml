@@ -6,6 +6,7 @@ GO_VERSION: 1.10.3
 ADM_OS: linux-amd64
 KUBERNETES_PUBLIC_ADDRESS: "{{ ansible_host }}"
 ADM_CA: "{{ ADM_PKIDIR }}/ca"
+ADM_KEY: "{{ ADM_PKIDIR }}/key"
 ADM_KUBECONFIGDIR: "{{ ADM_WORKDIR }}/config/"
 #ADM_TMP: "{{ ADM_KUBECONFIGDIR }}'/*'"
 #ENCRYPTION_KEY: $(head -c 32 /dev/urandom | base64)
