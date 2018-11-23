@@ -6,7 +6,7 @@
   shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -profile=kubernetes "{{ ADM_PKIDIR }}admin-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}admin"
 
 - name: gen client cert
-  shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -hostname={{ hostname }},{{ EXTERNAL_IP }},{{ INTERNAL_IP }} -profile=kubernetes "{{ ADM_PKIDIR }}{{ hostname }}-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}{{ hostname }}"
+  shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -hostname={{ hostname }},{{ EXTERNAL_IP }},{{ INTERNAL_IP }} -profile=kubernetes "{{ ADM_PKIDIR }}{{ inventory_hostname }}-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}{{ inventory_hostname }}"
 
 - name: gen controller manager cert
   shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -profile=kubernetes "{{ ADM_PKIDIR }}kube-controller-manager-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}kube-controller-manager"

@@ -1,6 +1,6 @@
 - template:
     src: hostname-csr.json.j2
-    dest: "{{ ADM_PKIDIR }}{{ hostname }}-csr.json"
+    dest: "{{ ADM_PKIDIR }}{{ inventory_hostname }}-csr.json"
     owner: root
     group: root
     mode: 0644
