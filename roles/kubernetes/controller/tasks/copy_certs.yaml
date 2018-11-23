@@ -54,10 +54,10 @@
     group: root
     mode: 0644
 
-- name: copy {{ hostname  }} key
+- name: copy {{ inventory_hostname  }} key
   copy:
-    src: "{{ ADM_CA }}{{ hostname  }}-key.pem"
-    dest: /var/lib/kubelet/{{ hostname  }}-key.pem
+    src: "{{ ADM_CA }}{{ inventory_hostname  }}-key.pem"
+    dest: /var/lib/kubelet/{{ inventory_hostname  }}-key.pem
     owner: root
     group: root
     mode: 0644

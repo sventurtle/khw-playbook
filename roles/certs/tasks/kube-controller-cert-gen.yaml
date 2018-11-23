@@ -6,7 +6,7 @@
   shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -profile=kubernetes "{{ ADM_PKIDIR }}admin-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}admin"
 
 - name: gen client cert
-  shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -hostname={{ hostname }},{{ EXTERNAL_IP }},{{ INTERNAL_IP }} -profile=kubernetes "{{ ADM_PKIDIR }}{{ inventory_hostname }}-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}{{ inventory_hostname }}"
+  shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -hostname={{ inventory_hostname }},{{ EXTERNAL_IP }},{{ INTERNAL_IP }} -profile=kubernetes "{{ ADM_PKIDIR }}{{ inventory_hostname }}-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}{{ inventory_hostname }}"
   with_inventory_hostnames:
     - all
 
@@ -20,7 +20,7 @@
   shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -profile=kubernetes "{{ ADM_PKIDIR }}kube-scheduler-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}kube-scheduler"
 
 - name: gen kubeapi key
-  shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -hostname=10.32.0.1,10.240.0.10,10.240.0.11,10.240.0.12,{{ KUBERNETES_PUBLIC_ADDRESS }},127.0.0.1,kubernetes.default -profile=kubernetes "{{ ADM_PKIDIR }}kubernetes-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}kubernetes"
+  shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -hostname={{ SUBNET }},{{ KUBERNETES_PUBLIC_ADDRESS }},127.0.0.1,kubernetes.default -profile=kubernetes "{{ ADM_PKIDIR }}kubernetes-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}kubernetes"
 
 - name: gen service account key
   shell: cfssl gencert -ca="{{ ADM_PKIDIR }}ca.pem" -ca-key="{{ ADM_PKIDIR }}ca-key.pem" -config="{{ ADM_PKIDIR }}ca-config.json" -profile=kubernetes "{{ ADM_PKIDIR }}service-account-csr.json" | cfssljson -bare "{{ ADM_PKIDIR }}service-account"
