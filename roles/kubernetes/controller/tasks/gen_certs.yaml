@@ -1,0 +1,2 @@
+- name: gen certs
+  script: scripts/certs.sh ansible {{ HOST_NET }} {{ SVC_NET }} {{ CIDR_NET }}
