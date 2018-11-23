@@ -1,4 +1,10 @@
-- hosts: controller
+- hosts: localhost
+  become: true
+  roles:
+    - create_tmp_directories
+    - certs
+
+- hosts: controllers
   become: true
   roles:
     - create_tmp_directories

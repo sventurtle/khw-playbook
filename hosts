@@ -1,10 +1,10 @@
 [all]
-controller ansible_user=root ansible_host=127.0.0.1 ansible_port=22
-worker ansible_user=root ansible_host=127.0.0.1 ansible_port=22
+timofeev ansible_user=root ansible_host=127.0.0.1 ansible_port=22
+timofeev2 ansible_user=root ansible_host=127.0.0.1 ansible_port=22
 
-[controller]
-controller
+[controllers]
+timofeev
 
 [workers]
-worker
+timofeev2
 

@@ -1,4 +1,4 @@
-- name: certs-configs-template
+- name: certs-get-bin
   include: certs-get-bin.yaml
 
 - name: certs-configs-template 
