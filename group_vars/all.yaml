@@ -7,7 +7,7 @@ ADM_OS: linux-amd64
 KUBERNETES_PUBLIC_ADDRESS: "{{ ansible_host }}"
 ADM_CA: "{{ ADM_PKIDIR }}"
 ADM_KUBECONFIGDIR: "{{ ADM_WORKDIR }}/config/"
-ADM_TMP: "{{ ADM_KUBECONFIGDIR }}'/*'"
+#ADM_TMP: "{{ ADM_KUBECONFIGDIR }}'/*'"
 ENCRYPTION_KEY: $(head -c 32 /dev/urandom | base64)
 ETCD_VERSION: 3.3.5
 ETCD_NAME: etcd
@@ -17,4 +17,3 @@ CNI_PLUGINS_VERSION: 0.6.0
 CONTAINERD_VERSION: 1.1.2
 EXTERNAL_IP: "{{ ansible_host }}"
 INTERNAL_IP: 127.0.0.1
-hostname: "{{ inventory_hostname }}"

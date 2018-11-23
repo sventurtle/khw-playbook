@@ -4,6 +4,8 @@
     owner: root
     group: root
     mode: 0644
+  with_inventory_hostnames:
+    - all
 
 - template:
     src: admin-csr.json.j2

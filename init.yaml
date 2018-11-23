@@ -4,7 +4,7 @@
 #    - create_tmp_directories
 #    - certs
 
-- hosts: localhost
+- hosts: controllers
   become: true
   roles:
     - create_tmp_directories
@@ -18,7 +18,7 @@
 - hosts: workers
   become: true
   roles:
-    - create_tmp_directories
+#    - create_tmp_directories
     - install_packages
     - download_kubectl
     - role: 'kubernetes/worker'
