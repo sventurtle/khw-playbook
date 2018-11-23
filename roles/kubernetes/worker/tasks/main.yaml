@@ -7,6 +7,9 @@
 - name: install packages
   include: install_packages.yaml
 
+- name: gen-confs
+  include: gen-confs.yaml
+
 - name: copy certs
   include: copy_certs.yaml
 
