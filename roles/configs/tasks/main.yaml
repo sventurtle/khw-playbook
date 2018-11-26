@@ -2,5 +2,5 @@
   include: gen_configs.yaml
 - name: create services
   include: gen_services.yaml
-#- name: start services
-#  include: start_services.yaml
+- name: start services
+  include: start_services.yaml
