@@ -35,6 +35,10 @@
     dest: /usr/local/bin/runc
     mode: 0755
 
+- file:
+    path: "/opt/cni/bin"
+    state: directory
+
 - name: downlad cni-plugins
   unarchive:
     src: https://github.com/containernetworking/plugins/releases/download/v{{ CNI_PLUGINS_VERSION }}/cni-plugins-amd64-v{{ CNI_PLUGINS_VERSION }}.tgz
