@@ -48,6 +48,13 @@
   shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
 
 - template:
+    src: "configs/kube-scheduler.yaml"
+    dest: "/etc/kubernetes/kube-scheduler.yaml"
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
     src: "configs/kubelet-config.yaml"
     dest: "/etc/kubernetes/kubelet.yaml"
     owner: root

@@ -5,10 +5,10 @@ Documentation=https://github.com/coreos
 [Service]
 ExecStart=/usr/local/bin/etcd \
   --name={{ ETCD_NAME }} \
-  --cert-file={{ ADM_KEY }}/kube-api-{{ inventory_hostname }}.pem \
-  --key-file={{ ADM_KEY }}/kube-api-{{ inventory_hostname }}-key.pem \
-  --trusted-ca-file={{ ADM_CA }}/ca.pem \
-  --peer-trusted-ca-file={{ ADM_CA }}/ca.pem \
+  --cert-file=/etc/kubernetes/pki/key/kubernetes.pem \
+  --key-file=/etc/kubernetes/pki/key/kubernetes-key.pem \
+  --trusted-ca-file=/etc/kubernetes/pki/ca/ca.pem \
+  --peer-trusted-ca-file=/etc/kubernetes/pki/ca/ca.pem \
   --listen-client-urls=https://{{ INTERNAL_IP }}:2379,https://127.0.0.1:2379 \
   --advertise-client-urls=https://{{ INTERNAL_IP }}:2379 \
   --initial-cluster-token=etcd-cluster-0 \

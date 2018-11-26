@@ -1,12 +1,13 @@
 #- hosts: localhost
 #  become: true
 #  roles:
-###    - cfssl
+#    - cfssl
 
 - hosts: all
   become: true
   roles:
     - certs
-    - kubectl
+    - etcd
+#    - kubectl
     - kubeinit
     - configs

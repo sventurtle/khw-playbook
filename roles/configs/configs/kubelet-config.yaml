@@ -15,4 +15,4 @@ clusterDNS:
 podCIDR: "10.0.0.0/16"
 runtimeRequestTimeout: "15m"
 tlsCertFile: "/etc/kubernetes/pki/key/kubelet.pem"
-tlsPrivateKeyFile: "/etc/kubernetes/pki/key/kubelet.pem-key"
+tlsPrivateKeyFile: "/etc/kubernetes/pki/key/kubelet-key.pem"

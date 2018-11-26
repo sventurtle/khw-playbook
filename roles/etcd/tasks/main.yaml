@@ -4,8 +4,8 @@
 - name: create_etcd_directories
   include: create_etcd_directories.yaml
 
-- name: copy_etcd_certs
-  include: copy_etcd_certs.yaml
+#- name: copy_etcd_certs
+#  include: copy_etcd_certs.yaml
 
 - name: copy_etcd_service
   include: copy_etcd_service.yaml

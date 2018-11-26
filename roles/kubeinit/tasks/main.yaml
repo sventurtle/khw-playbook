@@ -1,5 +1,5 @@
 - name: install dependencies
   include: install_packages.yaml
 
-- name: download binaries
-  include: download_binaries.yaml
+#- name: download binaries
+#  include: download_binaries.yaml
