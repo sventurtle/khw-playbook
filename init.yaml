@@ -6,6 +6,7 @@
 - hosts: all
   become: true
   roles:
+    - prepare
     - certs
     - etcd
     - kubectl
