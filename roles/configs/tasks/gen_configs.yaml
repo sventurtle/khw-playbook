@@ -1,0 +1,99 @@
+#### KUBE-PROXY CONF
+- debug:
+    msg: "generating kube-proxy configs"
+- name: kubectl config set-cluster
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://127.0.0.1:6443 --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+- name: kubectl config set-credentials
+  shell: kubectl config set-credentials system:kube-proxy --client-certificate="/etc/kubernetes/pki/key/kube-proxy.pem" --client-key="/etc/kubernetes/pki/key/kube-proxy-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+- name: kubectl config set-context
+  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-proxy --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+- name: kubectl config use-context
+  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+
+##### ADMIN CONFIG
+- debug:
+    msg: "generating admin configs"
+- name: kubectl config set-cluster
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem"  --embed-certs=true --server=https://127.0.0.1:6443  --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+- name: kubectl config set-credentials
+  shell: kubectl config set-credentials admin --client-certificate="/etc/kubernetes/pki/key/admin.pem" --client-key=/etc/kubernetes/pki/key/admin-key.pem --embed-certs=true --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+- name: kubectl config set-context default
+  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=admin --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+- name: kubectl config use-context default
+  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+
+##### KUBE-CONTROLLER-MANAGER CONFIG
+- debug:
+    msg: "generating kube-controller-manager configs"
+- name: kubectl config set-cluster
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://127.0.0.1:6443 --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+- name: kubectl config set-credentials
+  shell: kubectl config set-credentials system:kube-controller-manager --client-certificate="/etc/kubernetes/pki/key/kube-controller-manager.pem" --client-key="/etc/kubernetes/pki/key/kube-controller-manager-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+- name: kubectl config set-context
+  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-controller-manager --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+- name: kubectl config use-context default
+  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+
+##### KUBE-SCHEDULER CONFIG
+- debug:
+    msg: "generating kube-scheduler configs"
+
+- name: kubectl config set-cluster
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://127.0.0.1:6443 --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+- name: kubectl config set-credentials
+  shell: kubectl config set-credentials system:kube-scheduler --client-certificate="/etc/kubernetes/pki/key/kube-scheduler.pem" --client-key="/etc/kubernetes/pki/key/kube-scheduler-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+- name: kubectl config set-context
+  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-scheduler --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+- name: kubectl config use-context
+  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+
+- template:
+    src: "configs/kube-scheduler.yaml"
+    dest: "/etc/kubernetes/kube-scheduler.yaml"
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: "configs/kubelet-config.yaml"
+    dest: "/etc/kubernetes/kubelet.yaml"
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: "configs/kube-proxy-config.yaml"
+    dest: "/etc/kubernetes/kube-proxy.yaml"
+    owner: root
+    group: root
+    mode: 0644
+
+- file:
+    path: "/etc/containerd/"
+    state: directory
+
+- template:
+    src: "configs/containerd-config.toml"
+    dest: "/etc/containerd/config.toml"
+    owner: root
+    group: root
+    mode: 0644
+
+- file:
+    path: "/etc/cni/net.d/"
+    state: directory
+
+- template:
+    src: "configs/10-bridge.conf"
+    dest: "/etc/cni/net.d/10-bridge.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: "configs/99-loopback.conf"
+    dest: "/etc/cni/net.d/99-loopback.conf"
+    owner: root
+    group: root
+    mode: 0644
+

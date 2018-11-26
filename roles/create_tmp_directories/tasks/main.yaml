@@ -1,9 +1,0 @@
-- file:
-    path: "{{ playbook_dir }}/config/"
-    state: directory
-    mode: 0755
-
-- file:
-    path: "{{ playbook_dir }}/pki"
-    state: directory
-    mode: 0755

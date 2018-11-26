@@ -1,0 +1,17 @@
+- name: Create directory
+  file: path=/etc/kubernetes/pki/key state=directory
+- name: kubectl gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/admin-csr.json | cfssljson -bare /etc/kubernetes/pki/key/admin
+- name: kubelet gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -hostname=10.32.0.1,10.32.0.0,10.0.0.0,127.0.0.1,192.168.0.0,kubernetes.default,kubetest -profile=kubernetes /etc/kubernetes/pki/csr/kubelet-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kubelet
+- name: kube-controller-manager gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/kube-controller-manager-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kube-controller-manager
+- name: kube-proxy gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/kube-proxy-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kube-proxy
+- name: kube-scheduler gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/kube-scheduler-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kube-scheduler
+- name: kube-api gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -hostname=10.32.0.1,10.32.0.0,10.0.0.0,127.0.0.1,192.168.0.0,kubernetes.default -profile=kubernetes /etc/kubernetes/pki/csr/kubernetes-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kubernetes
+- name: kube-service-account gen cert
+  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/service-account-csr.json | cfssljson -bare /etc/kubernetes/pki/key/service-account
+

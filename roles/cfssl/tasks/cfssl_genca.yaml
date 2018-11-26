@@ -1,0 +1,19 @@
+- file:
+    path: "/tmp/cfssl/ca/"
+    state: directory
+    mode: 0755
+- template:
+    src: ca-csr.json.j2
+    dest: /tmp/cfssl/ca/ca-csr.json
+    owner: root
+    group: root
+    mode: 0644
+- template:
+    src: ca-config.json.j2
+    dest: /tmp/cfssl/ca/ca-config.json
+    owner: root
+    group: root
+    mode: 0644
+- name: generate_ca
+  shell: cfssl gencert -initca /tmp/cfssl/ca/ca-csr.json | cfssljson -bare /tmp/cfssl/ca/ca
+

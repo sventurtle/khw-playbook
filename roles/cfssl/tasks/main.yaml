@@ -1,0 +1,4 @@
+- name: install cfssl
+  include: cfssl_install.yaml
+- name: generate ca
+  include: cfssl_genca.yaml

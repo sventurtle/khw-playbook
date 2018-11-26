@@ -1,0 +1,6 @@
+- name: get_cfssl
+  shell: wget -q --https-only --no-dns-cache https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 --output-document=/bin/cfssl
+- name: get_cfssljson
+  shell: wget -q --https-only --no-dns-cache https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 --output-document=/bin/cfssljson
+- name: chmod
+  shell: chmod +x /bin/cfssl /bin/cfssljson

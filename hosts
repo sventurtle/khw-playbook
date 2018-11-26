@@ -1,9 +1,7 @@
-timofeev ansible_user=root ansible_host=127.0.0.1 ansible_port=22
-timofeev2 ansible_user=root ansible_host=192.168.80.210 ansible_port=22 ansible_connection=ssh
+kubetest ansible_user=root ansible_host=127.0.0.1 ansible_port=22
 
 [controllers]
-timofeev
+kubetest ansible_user=root ansible_host=127.0.0.1 ansible_port=22
 
 [workers]
-timofeev2
-
+kubetest ansible_user=root ansible_host=127.0.0.1 ansible_port=22
