@@ -4,7 +4,7 @@ Documentation=https://github.com/kubernetes/kubernetes
 
 [Service]
 ExecStart=/usr/local/bin/kube-apiserver \
-  --advertise-address={{ INTERNAL_IP }} \
+  --advertise-address={{ EXTERNAL_IP }} \
   --allow-privileged=true \
   --apiserver-count=10 \
   --audit-log-maxage=30 \
