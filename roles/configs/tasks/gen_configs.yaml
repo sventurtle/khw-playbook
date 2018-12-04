@@ -2,7 +2,7 @@
 - debug:
     msg: "generating kube-proxy configs"
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://127.0.0.1:6443 --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS  }}":6443 --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
 - name: kubectl config set-credentials
   shell: kubectl config set-credentials system:kube-proxy --client-certificate="/etc/kubernetes/pki/key/kube-proxy.pem" --client-key="/etc/kubernetes/pki/key/kube-proxy-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
 - name: kubectl config set-context
@@ -14,7 +14,7 @@
 - debug:
     msg: "generating admin configs"
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem"  --embed-certs=true --server=https://127.0.0.1:6443  --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem"  --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS }}":6443  --kubeconfig="/etc/kubernetes/admin.kubeconfig"
 - name: kubectl config set-credentials
   shell: kubectl config set-credentials admin --client-certificate="/etc/kubernetes/pki/key/admin.pem" --client-key=/etc/kubernetes/pki/key/admin-key.pem --embed-certs=true --kubeconfig="/etc/kubernetes/admin.kubeconfig"
 - name: kubectl config set-context default
@@ -26,7 +26,7 @@
 - debug:
     msg: "generating kube-controller-manager configs"
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://127.0.0.1:6443 --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS }}":6443 --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
 - name: kubectl config set-credentials
   shell: kubectl config set-credentials system:kube-controller-manager --client-certificate="/etc/kubernetes/pki/key/kube-controller-manager.pem" --client-key="/etc/kubernetes/pki/key/kube-controller-manager-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
 - name: kubectl config set-context
@@ -39,7 +39,7 @@
     msg: "generating kube-scheduler configs"
 
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://127.0.0.1:6443 --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS }}":6443 --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
 - name: kubectl config set-credentials
   shell: kubectl config set-credentials system:kube-scheduler --client-certificate="/etc/kubernetes/pki/key/kube-scheduler.pem" --client-key="/etc/kubernetes/pki/key/kube-scheduler-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
 - name: kubectl config set-context
