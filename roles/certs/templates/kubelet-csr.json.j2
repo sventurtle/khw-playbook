@@ -1,16 +1,16 @@
 {
   "CN": "system:node:{{ inventory_hostname }}",
   "key": {
-    "algo": "rsa",
-    "size": 2048
+    "algo": "{{ KHW_CERT_ALG }}",
+    "size": {{ KHW_CERT_SIZE }}
   },
   "names": [
     {
-      "C": "RU",
-      "L": "Moscow",
+      "C": "{{ KHW_CERT_C }}",
+      "L": "{{ KHW_CERT_L }}",
       "O": "system:nodes",
-      "OU": "Kubernetes The Hard Way",
-      "ST": "Moscow"
+      "OU": "{{ KHW_CERT_OU }}",
+      "ST": "{{ KHW_CERT_ST }}"
     }
   ]
 }

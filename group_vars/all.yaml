@@ -1,23 +1,41 @@
 KUBE_VERSION: 1.11.3
-ADM_WORKDIR: "{{ playbook_dir }}"
-ADM_PKIDIR: "/etc/kubernetes/pki"
-ADM_TMP: "{{ ADM_PKIDIR }}'/*'"
+HELM_VERSION: 2.12.0
 GO_VERSION: 1.10.3
-ADM_OS: linux-amd64
-KUBERNETES_PUBLIC_ADDRESS: "{{ ansible_host }}"
-ADM_CA: "{{ ADM_PKIDIR }}/ca"
-ADM_KEY: "{{ ADM_PKIDIR }}/key"
-ADM_KUBECONFIGDIR: "{{ ADM_WORKDIR }}/config/"
-#ADM_TMP: "{{ ADM_KUBECONFIGDIR }}'/*'"
-#ENCRYPTION_KEY: $(head -c 32 /dev/urandom | base64)
 ETCD_VERSION: 3.3.5
-ETCD_NAME: etcd
+CFSSL_VERSION: R1.2
 RUNC_VERSION: 1.0.0-rc5
 CRICTL_VERSION: 1.0.0-beta.0
 CNI_PLUGINS_VERSION: 0.6.0
 CONTAINERD_VERSION: 1.1.2
-EXTERNAL_IP: "{{ ansible_host }}"
-INTERNAL_IP: 127.0.0.1
-HOST_NET: 192.168.0.0
-SVC_NET: 10.32.0.0
-CIDR_NET: 10.0.0.0
+KHW_ARCH: linux-amd64 #TODO
+KHW_PUBLIC_IP: "{{ ansible_host }}"
+KHW_PREFIX: "/" # Должен быть символ / или оканчиваться на него
+KHW_CONFIG: "{{ KHW_PREFIX }}etc/kubernetes/"
+KHW_PKIDIR: "{{ KHW_PREFIX }}etc/kubernetes/pki"
+
+KHW_LOCAL_CFSSL: "/tmp/cfssl/"
+KHW_CA: "{{ KHW_PKIDIR }}/ca/"
+KHW_CSR: "{{ KHW_PKIDIR }}/csr/"
+KHW_KEY: "{{ KHW_PKIDIR }}/key/"
+KHW_NET_HOST: 192.168.0.0
+KHW_NET_SVC: 10.42.0.0
+KHW_NET_SVC_MASK: 24
+KHW_NET_CIDR: 10.0.0.0
+KHW_NET_CIDR_MASK: 16
+KHW_NET_GATE: 10.42.0.1
+KHW_NET_DNS: 10.42.0.10
+KHW_NET_DOMAIN: "selectel-01.kube.cognita.ru"
+
+KHW_CERT_ALG: "rsa"
+KHW_CERT_SIZE: "2048"
+KHW_CERT_C: "RU"
+KHW_CERT_L: "Moscow"
+KHW_CERT_OU: "KHW_BADSYSADM"
+KHW_CERT_ST: "Moscow"
+
+KHW_CONFIG_PRIVILEGED: "true"
+KHW_CONFIG_BIND: "0.0.0.0"
+KHW_CONFIG_CLUSTERNAME: "kubernetes"
+KHW_CONFIG_PULLDEADLINE: "4m"
+
+KHW_CONFIG_ETCD: "https://192.168.80.190:3379,https://192.168.80.191:3379,https://192.168.80.192:3379"

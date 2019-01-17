@@ -1,6 +1,13 @@
 - name: daemon-reload
   command: systemctl daemon-reload
 
+- name: start containerd
+  systemd:
+    name: containerd.service
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+
 - name: start kube-apiserver
   systemd:
     name: kube-apiserver.service
@@ -29,13 +36,6 @@
 - name: start kubelet
   systemd:
     name: kubelet.service
-    daemon_reload: yes
-    state: restarted
-    enabled: yes
-
-- name: start containerd
-  systemd:
-    name: containerd.service
     daemon_reload: yes
     state: restarted
     enabled: yes

@@ -1,0 +1,30 @@
+#############################!!!!!!!!!!!!!!!
+
+- name: bind cluster role for kubectl
+  command: kubectl create clusterrolebinding apiserver-kubelet-admin --user=kubernetes --clusterrole=system:kubelet-api-admin
+- name: enable kernel module for network
+  command: modprobe br_netfilter
+- name: copy coreos yaml
+  template:
+    src: coredns.yaml.j2
+    dest: /tmp/coredns.yaml
+    owner: root
+    group: root
+    mode: 0644
+- name: apply coreos yaml
+  command: kubectl apply -f /tmp/coredns.yaml
+- name: create service account for helm
+  command: kubectl create sa --namespace helm tiller
+- name: bind cluster role for helm
+  command: kubectl create clusterrolebinding tiller --user=system:serviceaccount:helm:tiller --clusterrole=cluster-admin
+- name: download_helm
+  unarchive:
+    src: https://kubernetes-helm.storage.googleapis.com/helm-v{{ HELM_VERSION }}-{{ KHW_ARCH }}.tar.gz
+    dest: /tmp/
+    remote_src: yes
+    mode: 0755
+- command: "mv /tmp/{{ KHW_ARCH }}/helm {{ KHW_PREFIX }}bin/helm"
+- name: create namespace for helm
+  command: kubectl create ns helm
+- name: init helm
+  shell: helm init --service-account tiller --tiller-namespace helm

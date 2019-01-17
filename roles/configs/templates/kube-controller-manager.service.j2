@@ -3,17 +3,17 @@ Description=Kubernetes Controller Manager
 Documentation=https://github.com/kubernetes/kubernetes
 
 [Service]
-ExecStart=/usr/local/bin/kube-controller-manager \
-  --address=0.0.0.0 \
-  --cluster-cidr=10.0.0.0/16 \
-  --cluster-name=kubernetes \
-  --cluster-signing-cert-file=/etc/kubernetes/pki/ca/ca.pem \
-  --cluster-signing-key-file=/etc/kubernetes/pki/ca/ca-key.pem \
-  --kubeconfig=/etc/kubernetes/kube-controller-manager.kubeconfig \
+ExecStart={{ KHW_PREFIX }}bin/kube-controller-manager \
+  --address={{ KHW_CONFIG_BIND }} \
+  --cluster-cidr={{ KHW_NET_CIDR }}/{{ KHW_NET_CIDR_MASK }} \
+  --cluster-name={{ KHW_CONFIG_CLUSTERNAME }} \
+  --cluster-signing-cert-file={{ KHW_CA }}ca.pem \
+  --cluster-signing-key-file={{ KHW_CA }}ca-key.pem \
+  --kubeconfig={{ KHW_CONFIG }}kube-controller-manager.kubeconfig \
   --leader-elect=true \
-  --root-ca-file=/etc/kubernetes/pki/ca/ca.pem  \
-  --service-account-private-key-file=/etc/kubernetes/pki/key/service-account-key.pem \
-  --service-cluster-ip-range=10.32.0.0/24 \
+  --root-ca-file={{ KHW_CA }}ca.pem  \
+  --service-account-private-key-file={{ KHW_KEY }}service-account-key.pem \
+  --service-cluster-ip-range={{ KHW_NET_SVC }}/{{ KHW_NET_SVC_MASK }} \
   --use-service-account-credentials=true \
   --v=2
 Restart=on-failure

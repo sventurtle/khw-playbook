@@ -6,13 +6,13 @@ authentication:
   webhook:
     enabled: true
   x509:
-    clientCAFile: "/etc/kubernetes/pki/ca/ca.pem"
+    clientCAFile: "{{ KHW_CA }}ca.pem"
 authorization:
   mode: Webhook
-clusterDomain: "cluster.local"
+clusterDomain: "{{ KHW_NET_DOMAIN }}"
 clusterDNS:
-  - "10.32.0.10"
-podCIDR: "10.0.0.0/16"
+  - "{{ KHW_NET_DNS }}"
+podCIDR: "{{ KHW_NET_CIDR }}/{{ KHW_NET_CIDR_MASK }}"
 runtimeRequestTimeout: "15m"
-tlsCertFile: "/etc/kubernetes/pki/key/kubelet.pem"
-tlsPrivateKeyFile: "/etc/kubernetes/pki/key/kubelet-key.pem"
+tlsCertFile: "{{ KHW_KEY }}kubelet.pem"
+tlsPrivateKeyFile: "{{ KHW_KEY }}kubelet-key.pem"

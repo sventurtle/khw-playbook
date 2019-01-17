@@ -1,2 +1,0 @@
-- name: gen ca
-  shell: bash /tmp/certs.sh ansible ca
