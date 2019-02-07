@@ -13,6 +13,8 @@
     mode: 0644
 - name: apply coreos yaml
   command: kubectl apply -f /tmp/coredns.yaml
+- name: create namespace for helm
+  command: kubectl create ns helm
 - name: create service account for helm
   command: kubectl create sa --namespace helm tiller
 - name: bind cluster role for helm
@@ -24,7 +26,5 @@
     remote_src: yes
     mode: 0755
 - command: "mv /tmp/{{ KHW_ARCH }}/helm {{ KHW_PREFIX }}bin/helm"
-- name: create namespace for helm
-  command: kubectl create ns helm
 - name: init helm
   shell: helm init --service-account tiller --tiller-namespace helm
