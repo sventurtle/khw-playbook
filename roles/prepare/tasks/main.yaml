@@ -1,0 +1,10 @@
+- name: swap off
+  shell: swapoff -a
+
+- name: swap off step 2
+  shell: sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+
+- name: modprobe
+  shell: modprobe br_netfilter
+
+
