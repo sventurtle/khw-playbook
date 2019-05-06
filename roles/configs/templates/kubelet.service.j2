@@ -5,12 +5,12 @@ After=containerd.service
 Requires=containerd.service
 
 [Service]
-ExecStart=/usr/local/bin/kubelet \
-  --config=/etc/kubernetes/kubelet.yaml \
+ExecStart={{ KHW_PREFIX }}bin/kubelet \
+  --config={{ KHW_CONFIG }}kubelet.yaml \
   --container-runtime=remote \
   --container-runtime-endpoint=unix:///run/containerd/containerd.sock \
-  --image-pull-progress-deadline=2m \
-  --kubeconfig=/etc/kubernetes/admin.kubeconfig \
+  --image-pull-progress-deadline={{ KHW_CONFIG_PULLDEADLINE }} \
+  --kubeconfig={{ KHW_CONFIG }}admin.kubeconfig \
   --network-plugin=cni \
   --register-node=true \
   --v=2

@@ -2,68 +2,68 @@
 - debug:
     msg: "generating kube-proxy configs"
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS  }}":6443 --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+  shell: kubectl config set-cluster {{ KHW_CERT_OU }} --certificate-authority="{{ KHW_CA }}ca.pem" --embed-certs=true --server=https://{{ KHW_PUBLIC_IP }}:6443 --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
 - name: kubectl config set-credentials
-  shell: kubectl config set-credentials system:kube-proxy --client-certificate="/etc/kubernetes/pki/key/kube-proxy.pem" --client-key="/etc/kubernetes/pki/key/kube-proxy-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+  shell: kubectl config set-credentials system:kube-proxy --client-certificate="{{ KHW_KEY }}kube-proxy.pem" --client-key="{{ KHW_KEY }}kube-proxy-key.pem" --embed-certs=true --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
 - name: kubectl config set-context
-  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-proxy --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+  shell: kubectl config set-context default --cluster={{ KHW_CERT_OU }} --user=system:kube-proxy --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
 - name: kubectl config use-context
-  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-proxy.kubeconfig"
+  shell: kubectl config use-context default --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
 
 ##### ADMIN CONFIG
 - debug:
     msg: "generating admin configs"
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem"  --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS }}":6443  --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+  shell: kubectl config set-cluster {{ KHW_CERT_OU }} --certificate-authority="{{ KHW_CA }}ca.pem"  --embed-certs=true --server=https://{{ KHW_PUBLIC_IP }}:6443  --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
 - name: kubectl config set-credentials
-  shell: kubectl config set-credentials admin --client-certificate="/etc/kubernetes/pki/key/admin.pem" --client-key=/etc/kubernetes/pki/key/admin-key.pem --embed-certs=true --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+  shell: kubectl config set-credentials admin --client-certificate="{{ KHW_KEY }}admin.pem" --client-key={{ KHW_KEY }}admin-key.pem --embed-certs=true --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
 - name: kubectl config set-context default
-  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=admin --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+  shell: kubectl config set-context default --cluster={{ KHW_CERT_OU }} --user=admin --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
 - name: kubectl config use-context default
-  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/admin.kubeconfig"
+  shell: kubectl config use-context default --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
 
 ##### KUBE-CONTROLLER-MANAGER CONFIG
 - debug:
     msg: "generating kube-controller-manager configs"
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS }}":6443 --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+  shell: kubectl config set-cluster {{ KHW_CERT_OU }} --certificate-authority="{{ KHW_CA }}ca.pem" --embed-certs=true --server=https://{{ KHW_PUBLIC_IP }}:6443 --kubeconfig="{{ KHW_CONFIG }}kube-controller-manager.kubeconfig"
 - name: kubectl config set-credentials
-  shell: kubectl config set-credentials system:kube-controller-manager --client-certificate="/etc/kubernetes/pki/key/kube-controller-manager.pem" --client-key="/etc/kubernetes/pki/key/kube-controller-manager-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+  shell: kubectl config set-credentials system:kube-controller-manager --client-certificate="{{ KHW_KEY }}kube-controller-manager.pem" --client-key="{{ KHW_KEY }}kube-controller-manager-key.pem" --embed-certs=true --kubeconfig="{{ KHW_CONFIG }}kube-controller-manager.kubeconfig"
 - name: kubectl config set-context
-  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-controller-manager --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+  shell: kubectl config set-context default --cluster={{ KHW_CERT_OU }} --user=system:kube-controller-manager --kubeconfig="{{ KHW_CONFIG }}kube-controller-manager.kubeconfig"
 - name: kubectl config use-context default
-  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-controller-manager.kubeconfig"
+  shell: kubectl config use-context default --kubeconfig="{{ KHW_CONFIG }}kube-controller-manager.kubeconfig"
 
 ##### KUBE-SCHEDULER CONFIG
 - debug:
     msg: "generating kube-scheduler configs"
 
 - name: kubectl config set-cluster
-  shell: kubectl config set-cluster kubernetes-the-hard-way --certificate-authority="/etc/kubernetes/pki/ca/ca.pem" --embed-certs=true --server=https://"{{ KUBERNETES_PUBLIC_ADDRESS }}":6443 --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+  shell: kubectl config set-cluster {{ KHW_CERT_OU }} --certificate-authority="{{ KHW_CA }}ca.pem" --embed-certs=true --server=https://{{ KHW_PUBLIC_IP }}:6443 --kubeconfig="{{ KHW_CONFIG }}kube-scheduler.kubeconfig"
 - name: kubectl config set-credentials
-  shell: kubectl config set-credentials system:kube-scheduler --client-certificate="/etc/kubernetes/pki/key/kube-scheduler.pem" --client-key="/etc/kubernetes/pki/key/kube-scheduler-key.pem" --embed-certs=true --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+  shell: kubectl config set-credentials system:kube-scheduler --client-certificate="{{ KHW_KEY }}kube-scheduler.pem" --client-key="{{ KHW_KEY }}kube-scheduler-key.pem" --embed-certs=true --kubeconfig="{{ KHW_CONFIG }}kube-scheduler.kubeconfig"
 - name: kubectl config set-context
-  shell: kubectl config set-context default --cluster=kubernetes-the-hard-way --user=system:kube-scheduler --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+  shell: kubectl config set-context default --cluster={{ KHW_CERT_OU }} --user=system:kube-scheduler --kubeconfig="{{ KHW_CONFIG }}kube-scheduler.kubeconfig"
 - name: kubectl config use-context
-  shell: kubectl config use-context default --kubeconfig="/etc/kubernetes/kube-scheduler.kubeconfig"
+  shell: kubectl config use-context default --kubeconfig="{{ KHW_CONFIG }}kube-scheduler.kubeconfig"
 
 - template:
     src: "configs/kube-scheduler.yaml"
-    dest: "/etc/kubernetes/kube-scheduler.yaml"
+    dest: "{{ KHW_CONFIG }}kube-scheduler.yaml"
     owner: root
     group: root
     mode: 0644
 
 - template:
     src: "configs/kubelet-config.yaml"
-    dest: "/etc/kubernetes/kubelet.yaml"
+    dest: "{{ KHW_CONFIG }}kubelet.yaml"
     owner: root
     group: root
     mode: 0644
 
 - template:
     src: "configs/kube-proxy-config.yaml"
-    dest: "/etc/kubernetes/kube-proxy.yaml"
+    dest: "{{ KHW_CONFIG }}kube-proxy.yaml"
     owner: root
     group: root
     mode: 0644

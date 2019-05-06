@@ -1,6 +1,11 @@
 - name: get_cfssl
-  shell: wget -q --https-only --no-dns-cache https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 --output-document=/bin/cfssl
+  get_url:
+    url: https://pkg.cfssl.org/{{ CFSSL_VERSION }}/cfssl_{{ KHW_ARCH }}
+    dest: "{{ KHW_PREFIX }}bin/cfssl"
+    mode: 0540
+
 - name: get_cfssljson
-  shell: wget -q --https-only --no-dns-cache https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 --output-document=/bin/cfssljson
-- name: chmod
-  shell: chmod +x /bin/cfssl /bin/cfssljson
+  get_url:
+    url: https://pkg.cfssl.org/{{ CFSSL_VERSION }}/cfssljson_{{ KHW_ARCH }}
+    dest: "{{ KHW_PREFIX }}bin/cfssljson"
+    mode: 0540

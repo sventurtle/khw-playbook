@@ -1,17 +1,16 @@
 - name: Create directory
-  file: path=/etc/kubernetes/pki/key state=directory
+  file: path={{ KHW_KEY }} state=directory
 - name: kubectl gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/admin-csr.json | cfssljson -bare /etc/kubernetes/pki/key/admin
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -profile=kubernetes {{ KHW_CSR }}admin-csr.json | cfssljson -bare {{ KHW_KEY }}admin
 - name: kubelet gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -hostname=10.32.0.1,10.32.0.0,10.0.0.0,127.0.0.1,192.168.0.0,kubernetes.default,"{{ inventory_hostname }}" -profile=kubernetes /etc/kubernetes/pki/csr/kubelet-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kubelet
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -hostname=127.0.0.1,{{ KHW_PUBLIC_IP }},{{ KHW_NET_GATE }},{{ KHW_NET_DNS }},{{ KHW_NET_SVC }},{{ KHW_NET_CIDR }},{{ KHW_NET_HOST }},{{ ansible_facts['nodename'] }},kubernetes.default -profile=kubernetes {{ KHW_CSR }}kubelet-csr.json | cfssljson -bare {{ KHW_KEY }}kubelet
 - name: kube-controller-manager gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/kube-controller-manager-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kube-controller-manager
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -profile=kubernetes {{ KHW_CSR }}kube-controller-manager-csr.json | cfssljson -bare {{ KHW_KEY }}kube-controller-manager
 - name: kube-proxy gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/kube-proxy-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kube-proxy
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -profile=kubernetes {{ KHW_CSR }}kube-proxy-csr.json | cfssljson -bare {{ KHW_KEY }}kube-proxy
 - name: kube-scheduler gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/kube-scheduler-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kube-scheduler
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -profile=kubernetes {{ KHW_CSR }}kube-scheduler-csr.json | cfssljson -bare {{ KHW_KEY }}kube-scheduler
 - name: kube-api gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -hostname=10.32.0.1,10.32.0.0,10.0.0.0,127.0.0.1,192.168.0.0,kubernetes.default,"{{ KUBERNETES_PUBLIC_ADDRESS }}" -profile=kubernetes /etc/kubernetes/pki/csr/kubernetes-csr.json | cfssljson -bare /etc/kubernetes/pki/key/kubernetes
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -hostname=127.0.0.1,{{ KHW_PUBLIC_IP }},{{ KHW_NET_GATE }},{{ KHW_NET_DNS }},{{ KHW_NET_SVC }},{{ KHW_NET_CIDR }},{{ KHW_NET_HOST }},{{ ansible_facts['nodename'] }},kubernetes.default -profile=kubernetes {{ KHW_CSR }}kubernetes-csr.json | cfssljson -bare {{ KHW_KEY }}kubernetes
 - name: kube-service-account gen cert
-  shell: cfssl gencert -ca=/etc/kubernetes/pki/ca/ca.pem -ca-key=/etc/kubernetes/pki/ca/ca-key.pem -config=/etc/kubernetes/pki/ca/ca-config.json -profile=kubernetes /etc/kubernetes/pki/csr/service-account-csr.json | cfssljson -bare /etc/kubernetes/pki/key/service-account
-
+  shell: cfssl gencert -ca={{ KHW_CA }}ca.pem -ca-key={{ KHW_CA }}ca-key.pem -config={{ KHW_CA }}ca-config.json -profile=kubernetes {{ KHW_CSR }}service-account-csr.json | cfssljson -bare {{ KHW_KEY }}service-account
