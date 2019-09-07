@@ -4,16 +4,12 @@
     mode: 0755
 - template:
     src: ca-csr.json.j2
-    dest: {{ KHW_LOCAL_CFSSL }}ca/ca-csr.json
-    owner: root
-    group: root
+    dest: "{{ KHW_LOCAL_CFSSL }}ca/ca-csr.json"
     mode: 0644
 - template:
     src: ca-config.json.j2
-    dest: {{ KHW_LOCAL_CFSSL }}ca/ca-config.json
-    owner: root
-    group: root
+    dest: "{{ KHW_LOCAL_CFSSL }}ca/ca-config.json"
     mode: 0644
 - name: generate_ca
-  shell: cfssl gencert -initca {{ KHW_LOCAL_CFSSL }}ca/ca-csr.json | cfssljson -bare {{ KHW_LOCAL_CFSSL }}ca/ca
+  shell: "{{ KHW_LOCAL_CFSSL }}/bin/cfssl gencert -initca {{ KHW_LOCAL_CFSSL }}ca/ca-csr.json | {{ KHW_LOCAL_CFSSL }}/bin/cfssljson -bare {{ KHW_LOCAL_CFSSL }}ca/ca"
 

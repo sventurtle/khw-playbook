@@ -1,5 +1,12 @@
 #############################!!!!!!!!!!!!!!!
 
+- name: rm old config
+  command: rm -rfv /root/.kube/config
+  ignore_errors: yes
+- name: copy config
+  command: cp -rfv /etc/kubernetes/admin.kubeconfig /root/.kube/config
+- command: kubectl delete clusterrolebinding apiserver-kubelet-admin
+  ignore_errors: yes
 - name: bind cluster role for kubectl
   command: kubectl create clusterrolebinding apiserver-kubelet-admin --user=kubernetes --clusterrole=system:kubelet-api-admin
 - name: enable kernel module for network
@@ -13,12 +20,18 @@
     mode: 0644
 - name: apply coreos yaml
   command: kubectl apply -f /tmp/coredns.yaml
+- command: kubectl delete ns helm
+  ignore_errors: yes
 - name: create namespace for helm
   command: kubectl create ns helm
+- command: kubectl delete sa tiller --namespace helm
+  ignore_errors: yes
 - name: create service account for helm
-  command: kubectl create sa --namespace helm tiller
+  command: kubectl create sa tiller --namespace helm
+- command: kubectl delete clusterrolebinding tiller
+  ignore_errors: yes
 - name: bind cluster role for helm
-  command: kubectl create clusterrolebinding tiller --user=system:serviceaccount:helm:tiller --clusterrole=cluster-admin
+  command: kubectl create clusterrolebinding tiller --user=system:serviceaccount:helm:tiller --clusterrole=cluster-admin --namespace helm
 - name: download_helm
   unarchive:
     src: https://kubernetes-helm.storage.googleapis.com/helm-v{{ HELM_VERSION }}-{{ KHW_ARCH }}.tar.gz
@@ -27,4 +40,4 @@
     mode: 0755
 - command: "mv /tmp/{{ KHW_ARCH }}/helm {{ KHW_PREFIX }}bin/helm"
 - name: init helm
-  shell: helm init --service-account tiller --tiller-namespace helm
+  shell: helm init --service-account tiller

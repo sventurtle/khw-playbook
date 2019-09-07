@@ -1,1 +1,1 @@
-kube-m03 ansible_user=artemov ansible_host=192.168.80.192 ansible_port=22
+kube-m03 ansible_user=root ansible_host=192.168.80.192 ansible_port=22
