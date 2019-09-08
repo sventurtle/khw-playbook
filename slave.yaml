@@ -1,0 +1,15 @@
+#- hosts: localhost
+#  become: true
+#  roles:
+#    - cfssl
+
+- hosts: all
+  become: true
+  roles:
+    - prepare
+    - certs
+#    - etcd
+    - kubectl
+    - kubeslave
+    - configs-slave
+#    - kube-configure
