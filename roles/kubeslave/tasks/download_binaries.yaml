@@ -1,0 +1,49 @@
+- name: downlad crictl
+  unarchive:
+    src: https://github.com/kubernetes-incubator/cri-tools/releases/download/v{{ CRICTL_VERSION }}/crictl-v{{ CRICTL_VERSION }}-linux-amd64.tar.gz
+    dest: "{{ KHW_PREFIX }}bin/"
+    remote_src: yes
+    mode: 0755
+
+- name: download runsc
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-the-hard-way/runsc
+    dest: "{{ KHW_PREFIX }}bin/runsc"
+    mode: 0755
+
+- name: download runc
+  get_url:
+    url: https://github.com/opencontainers/runc/releases/download/v{{ RUNC_VERSION }}/runc.amd64
+    dest: "{{ KHW_PREFIX }}bin/runc"
+    mode: 0755
+
+- file:
+    path: "/opt/cni/bin"
+    state: directory
+
+- name: downlad cni-plugins
+  unarchive:
+    src: https://github.com/containernetworking/plugins/releases/download/v{{ CNI_PLUGINS_VERSION }}/cni-plugins-amd64-v{{ CNI_PLUGINS_VERSION }}.tgz
+    dest: "/opt/cni/bin/"
+    remote_src: yes
+    mode: 0755
+
+- name: downlad containerd
+  unarchive:
+    src: https://github.com/containerd/containerd/releases/download/v{{ CONTAINERD_VERSION }}/containerd-{{ CONTAINERD_VERSION }}.linux-amd64.tar.gz
+    dest: "{{ KHW_PREFIX }}"
+    remote_src: yes
+    mode: 0755
+
+- name: download kube-proxy
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.11.0/bin/linux/amd64/kube-proxy
+    dest: "{{ KHW_PREFIX }}bin/kube-proxy"
+    mode: 0755
+
+- name: download kubelet
+  get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v{{ KUBE_VERSION }}/bin/linux/amd64/kubelet
+    dest: "{{ KHW_PREFIX }}bin/kubelet"
+    mode: 0755
+

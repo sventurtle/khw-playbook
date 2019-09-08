@@ -1,0 +1,67 @@
+#### KUBE-PROXY CONF
+- debug:
+    msg: "generating kube-proxy configs"
+- name: kubectl config set-cluster
+  shell: kubectl config set-cluster {{ KHW_CERT_OU }} --certificate-authority="{{ KHW_CA }}ca.pem" --embed-certs=true --server=https://{{ KHW_PUBLIC_IP }}:6443 --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
+- name: kubectl config set-credentials
+  shell: kubectl config set-credentials system:kube-proxy --client-certificate="{{ KHW_KEY }}kube-proxy.pem" --client-key="{{ KHW_KEY }}kube-proxy-key.pem" --embed-certs=true --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
+- name: kubectl config set-context
+  shell: kubectl config set-context default --cluster={{ KHW_CERT_OU }} --user=system:kube-proxy --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
+- name: kubectl config use-context
+  shell: kubectl config use-context default --kubeconfig="{{ KHW_CONFIG }}kube-proxy.kubeconfig"
+
+##### ADMIN CONFIG
+- debug:
+    msg: "generating admin configs"
+- name: kubectl config set-cluster
+  shell: kubectl config set-cluster {{ KHW_CERT_OU }} --certificate-authority="{{ KHW_CA }}ca.pem"  --embed-certs=true --server=https://{{ KHW_PUBLIC_IP }}:6443  --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
+- name: kubectl config set-credentials
+  shell: kubectl config set-credentials admin --client-certificate="{{ KHW_KEY }}admin.pem" --client-key={{ KHW_KEY }}admin-key.pem --embed-certs=true --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
+- name: kubectl config set-context default
+  shell: kubectl config set-context default --cluster={{ KHW_CERT_OU }} --user=admin --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
+- name: kubectl config use-context default
+  shell: kubectl config use-context default --kubeconfig="{{ KHW_CONFIG }}admin.kubeconfig"
+
+- template:
+    src: "configs/kubelet-config.yaml"
+    dest: "{{ KHW_CONFIG }}kubelet.yaml"
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: "configs/kube-proxy-config.yaml"
+    dest: "{{ KHW_CONFIG }}kube-proxy.yaml"
+    owner: root
+    group: root
+    mode: 0644
+
+- file:
+    path: "/etc/containerd/"
+    state: directory
+
+- template:
+    src: "configs/containerd-config.toml"
+    dest: "/etc/containerd/config.toml"
+    owner: root
+    group: root
+    mode: 0644
+
+- file:
+    path: "/etc/cni/net.d/"
+    state: directory
+
+- template:
+    src: "configs/10-bridge.conf"
+    dest: "/etc/cni/net.d/10-bridge.conf"
+    owner: root
+    group: root
+    mode: 0644
+
+- template:
+    src: "configs/99-loopback.conf"
+    dest: "/etc/cni/net.d/99-loopback.conf"
+    owner: root
+    group: root
+    mode: 0644
+
