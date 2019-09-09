@@ -1,6 +1,16 @@
-- name: get_cfssl
-  shell: wget -q --https-only --no-dns-cache https://pkg.cfssl.org/{{ CFSSL_VERSION }}/cfssl_{{ KHW_ARCH }} --output-document=/bin/cfssl
-- name: get_cfssljson
-  shell: wget -q --https-only --no-dns-cache https://pkg.cfssl.org/{{ CFSSL_VERSION }}/cfssljson_{{ KHW_ARCH }} --output-document=/bin/cfssljson
-- name: chmod
-  shell: chmod +x /bin/cfssl /bin/cfssljson
+- name: ansible create directory for cfssl (ebany macos)
+  file:
+    path: "{{ KHW_LOCAL_CFSSL }}/bin"
+    state: directory
+
+- name: download cfssl
+  get_url:
+    url: "https://pkg.cfssl.org/{{ CFSSL_VERSION }}/cfssl_{{ KHW_ARCH }}"
+    dest: "{{ KHW_LOCAL_CFSSL }}/bin/cfssl"
+    mode: 0755
+
+- name: download cfssl
+  get_url:
+    url: "https://pkg.cfssl.org/{{ CFSSL_VERSION }}/cfssljson_{{ KHW_ARCH }}"
+    dest: "{{ KHW_LOCAL_CFSSL }}/bin/cfssljson"
+    mode: 0755
